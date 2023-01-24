@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ALX SE Flask Api Place Module."""
-from api.v1.app import app_views
+from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models import storage
 from models.city import City
