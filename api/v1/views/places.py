@@ -50,10 +50,9 @@ def create_place(city_id: str):
     city = storage.get(City, city_id)
     if not city:
         abort(404)
-    try:
-        place_attrs = request.get_json()
-    except Exception:
+    if not request.is_json:
         abort(400, 'Not a JSON')
+    place_attrs = request.get_json()
     if 'user_id' not in place_attrs:
         abort(400, 'Missing user_id')
     if 'name' not in place_attrs:
@@ -72,10 +71,9 @@ def create_place(city_id: str):
 @app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
 def update_place(place_id: str):
     """Update a place given its id."""
-    try:
-        place_attrs = request.get_json()
-    except Exception:
+    if not request.is_json:
         abort(400, 'Not a JSON')
+    place_attrs = request.get_json()
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
